@@ -1,0 +1,83 @@
+base_dir: &dir
+  "/home/hpguo/datasets/isic2017/"
+
+train_transforms:  &train_transform
+  - class: AIIT2TensorPair
+  - class: AIITNormalizePair
+    mean: 159.922
+    std: 28.871
+  - class: AIITRandomHorizontalFlipPair
+    p: 0.5
+  - class: AIITRandomVerticalFlipPair
+    p: 0.5
+  - class: AIITRandomRotationPair
+    p: 0.5
+    degree: [0, 360]
+  - class: AIITResizePair
+    size_h: 256
+    size_w: 256
+
+train_dataset: &train_data
+  class: AIITISICDataset
+  base_dir: *dir
+  transformer:
+    class: AIITCompose
+    transforms: *train_transform
+  train: True
+
+train_dataloader:
+  class: AIITDataLoader
+  dataset: *train_data
+  batch_size: 4
+  shuffle: True
+  num_workers: 2
+  pin_memory: True
+  persistent_workers: True
+
+
+test_transforms:  &test_transform
+  - class: AIIT2TensorPair
+  - class: AIITNormalizePair
+    mean: 148.429
+    std: 25.748
+  - class: AIITResizePair
+    size_h: 256
+    size_w: 256
+
+valid_dataset: &valid_data
+  class: AIITISICDataset
+  base_dir: *dir
+  transformer:
+    class: AIITCompose
+    transforms: *test_transform
+  train: False
+
+valid_dataloader:
+  class: AIITDataLoader
+  dataset: *valid_data
+  batch_size: 1
+  shuffle: True
+  num_workers: 1
+  pin_memory: True
+  persistent_workers: True
+
+#无test data，test数据集设置为valid_dataset
+test_dataset: &test_data
+  class: AIITISICDataset
+  base_dir: *dir
+  transformer:
+    class: AIITCompose
+    transforms: *test_transform
+  train: False
+
+test_dataloader:
+  class: AIITDataLoader
+  dataset: *test_data
+  batch_size: 1
+  shuffle: True
+  num_workers: 1
+  pin_memory: True
+  persistent_workers: True
+
+
+

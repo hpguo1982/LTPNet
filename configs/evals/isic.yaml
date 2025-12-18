@@ -1,0 +1,32 @@
+eval_AIITHD95: &eval1
+  class: AIITHD95
+  num_classes: 1
+  name: "HD95"
+  ignore_index: 0
+
+eval_AIITJc: &eval2
+  class: AIITJc
+  num_classes: 1
+  name: "JC"
+  ignore_index: 0
+
+eval_AIITDice: &eval3
+  class: AIITDice
+  num_classes: 1
+  name: "DSC"
+  ignore_index: 0
+
+eval_AIITAsd: &eval4
+  class: AIITAsd
+  num_classes: 1
+  name: "Asd"
+  ignore_index: 0
+
+eval_AIITGeneralMetrics: &eval5
+  class: AIITGeneralMetrics
+  num_classes: 1
+  name: "ASD"
+  ignore_index: 0
+
+
+evals: [*eval3]

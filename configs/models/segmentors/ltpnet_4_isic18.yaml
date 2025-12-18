@@ -1,0 +1,32 @@
+#Mobilemamba: &mobilemamba_var
+#  class: AIITMobileMamba
+#  ckpt: "/home/hpguo/AIITMedVision/checkpoints/vssm1_tiny_0230s_ckpt_epoch_264.pth"
+#  version: "tiny_0230s"
+#  in_channels: 3
+
+#resnet: &resnet_var
+#  class: AIITResnet
+#  name: "resnet34"
+#  pretrained: True
+
+mobile_mamba: &backbone
+  class: AIITMobileMamba
+  ckpt: "/home/chensen/mambayolo/mobilemamba_b4s.pth"
+#  mamba_dims: [50, 100, 200, 376, 448]
+encoder: &encoder_var
+  class: AIITLTPEncoder
+  backbone:
+    *backbone
+  img_size: [256, 256]
+  in_dims: [50, 100, 200, 376, 448]
+
+decoder: &decoder_var
+  class: AIITLTPDecoder
+  num_classes: 1
+  in_dims: [448, 376, 200, 100,50]
+  block_kernels: [3, 5, 7, 3, 3]
+
+model:
+  class: AIITLTPNet
+  encoder: *encoder_var
+  decoder: *decoder_var

@@ -1,0 +1,43 @@
+# ============================================
+# 配置文件：config.yaml
+# 说明：训练时通过 load_yaml("config.yaml") 加载
+# ============================================
+
+# -------- Optimizer 配置 --------
+optimizer:
+  name: AdamW              # 可选：Adam / SGD / RMSprop / AdamW
+  lr: 1.0e-3                 # 学习率
+  weight_decay: 1.0e-2       # 权重衰减
+  eps: 1.0e-8              # 数值稳定项
+  amsgrad: True           # 是否启用 AMSGrad
+  betas: [0.9, 0.999]      # Adam 系列优化器的动量参数
+
+# -------- Scheduler 配置 --------
+scheduler:
+  name: CosineAnnealingLR
+  T_max: 50 # – Maximum number of iterations. Cosine function period.
+  eta_min: 0.00001 # – Minimum learning rate. Default: 0.
+  last_epoch: -1 # – The index of last epoch. Default: -1.
+
+# -------- 训练相关参数（可选） --------
+training:
+  max_epochs: 300
+  #freeze_backbone_epochs: 10
+  #freeze_encoder_epochs: 10
+  seed: 42
+  use_amp: False
+  cuda: 0
+
+# -------- 模型保存与日志 --------
+output:
+  save_dir: "./checkpoints"
+  save_file: "model_isic18"
+  log_interval: 1
+  use_val_for_best_model: True
+
+# -------- 日志 --------
+logger:
+  class: AIITLogger
+  name: "MyLogger"
+  log_dir: "logs"
+

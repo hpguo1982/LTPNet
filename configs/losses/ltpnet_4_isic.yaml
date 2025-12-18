@@ -1,0 +1,25 @@
+
+cross_entropy_loss: &entropy
+  class: AIITCrossEntropyLoss
+  num_classes: 1
+  loss_weight: 1.0
+  cls_weight: null
+
+dice_loss: &dice
+  class: AIITDiceLoss
+  num_classes: 1
+  loss_weight: 1.0
+  cls_weight: null
+
+#losses: [*entropy, *dice]
+#losses: [*entropy, *dice]
+
+
+binary_dice_bce: &binary_dice_bce
+  class: AIITBceDiceLoss
+  dice_weight: 1.0
+  BCE_weight: 1.0
+
+
+#losses: [*entropy, *dice]
+losses: [*binary_dice_bce]

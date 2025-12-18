@@ -1,0 +1,13 @@
+train_config:
+  data_configs: "./configs/datasets/ph2_config.yaml"
+  model_config: "./configs/models/segmentors/ltpnet_4_ph2.yaml"
+  schedule_config: "./configs/schedules/ltpnet_schedules_ph2.yaml"
+  loss_config: "./configs/losses/ltpnet_4_isic.yaml"
+  eval_config: "./configs/evals/isic.yaml"
+
+test_config:
+  data_config: "./configs/datasets/ph2_config.yaml"
+  model_config: "./configs/models/segmentors/ltpnet_4_ph2.yaml"
+  eval_checkpoint_config: "./checkpoints/....yaml"
+
+
